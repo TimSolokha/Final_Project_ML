@@ -1,6 +1,6 @@
 # Final_Project_ML
 ## Overview:
-### Using MLAgents and Unity we are going to create a brain that when attached to a ball can solve a randomly generated maze using rays/vectors shot out to determine a path. Penalties for dead ends and reward for getting closer to end. Ultimately, I want a human player to be racing the trained agent to see who can complete the maze faster.
+Using MLAgents and Unity we are going to create a brain that when attached to a ball can solve a randomly generated maze using rays/vectors shot out to determine a path. Penalties for dead ends and reward for getting closer to end. Ultimately, I want a human player to be racing the trained agent to see who can complete the maze faster.
 
 ## Machine Learning Elements:
 -	Deep Reinforcement learning
