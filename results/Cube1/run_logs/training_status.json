@@ -1,0 +1,24 @@
+{
+    "MoveCube": {
+        "checkpoints": [
+            {
+                "steps": 24301,
+                "file_path": "results\\Cube1\\MoveCube\\MoveCube-24301.onnx",
+                "reward": null,
+                "creation_time": 1616687954.5051875
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 24301,
+            "file_path": "results\\Cube1\\MoveCube.onnx",
+            "reward": null,
+            "creation_time": 1616687954.5051875
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.23.0",
+        "torch_version": "1.7.1+cu110",
+        "tensorflow_version": "2.4.1"
+    }
+}

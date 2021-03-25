@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1616685367",
+        "python_version": "3.8.5 (default, Sep  3 2020, 21:29:08) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\tomlo\\Documents\\College\\Spring 2021\\Machine Learning\\HW\\ml-agents-release_12\\ml-agents-release_12\\venv\\Scripts\\mlagents-learn",
+        "mlagents_version": "0.23.0",
+        "mlagents_envs_version": "0.23.0",
+        "communication_protocol_version": "1.3.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.19.5",
+        "end_time_seconds": "1616685429"
+    },
+    "total": 61.610591500000005,
+    "count": 1,
+    "self": 0.008794600000001651,
+    "children": {
+        "run_training.setup": {
+            "total": 0.03724989999999995,
+            "count": 1,
+            "self": 0.03724989999999995
+        },
+        "TrainerController.start_learning": {
+            "total": 61.564547000000005,
+            "count": 1,
+            "self": 0.0008887999999842577,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 61.563416200000006,
+                    "count": 1,
+                    "self": 61.563416200000006
+                },
+                "trainer_threads": {
+                    "total": 2.300000005561742e-06,
+                    "count": 1,
+                    "self": 2.300000005561742e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 0.0002397000000087246,
+                    "count": 1,
+                    "self": 0.0002397000000087246
+                }
+            }
+        }
+    }
+}
