@@ -24,7 +24,8 @@ Using MLAgents and Unity we are going to create a brain that when attached to a 
 -	Somewhat well trained, can get through the maze (even if slowly)
 
 ## Milestone 3:
--	Good model, well trained and tuned to solve static maze quickly
+-	Update maze generator to inlcude spawn and endpoints
+-	Using ml-agents cumulative training with the maze generator
 
 ## Milestone 4:
 -	Change to a random maze
