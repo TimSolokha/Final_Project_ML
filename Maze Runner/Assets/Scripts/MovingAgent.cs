@@ -30,7 +30,7 @@ public class MovingAgent : Agent
 
         this.rBody.angularVelocity = Vector3.zero;
         this.rBody.velocity = Vector3.zero;
-        this.transform.localPosition = new Vector3(6.6f, 1f, -18);
+        this.transform.localPosition = new Vector3(-10f, 1f, -6f);
   
     }
 
@@ -63,6 +63,7 @@ public class MovingAgent : Agent
         rotateDir = -transform.up * rotate;
         rotateX += rotate;
         rBody.transform.rotation = Quaternion.Euler(0.0f, rotateX, 0.0f);
+
 
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, endGoal.localPosition);
         if (this.transform.localPosition.y < 0)
@@ -109,15 +110,19 @@ public class MovingAgent : Agent
         transform.rotation = Quaternion.Euler(0.0f, rotateX, 0.0f);
         rBody.transform.Translate(movement * forceMultiplier);
 
+        AddReward(-.00001f);
+
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, endGoal.localPosition);
         if (this.transform.localPosition.y < 0)
         {
+            //SetReward(-1f);
             EndEpisode();
         }
 
 
         if (distanceToTarget <= 1f)
-        { 
+        {
+            SetReward(1f);
             EndEpisode();
         }
 
