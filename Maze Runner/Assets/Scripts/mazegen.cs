@@ -11,6 +11,7 @@ public class mazegen : MonoBehaviour
     public int width, height;
     public Material brick;
     public GameObject endMarker;
+    //public GameObject deadEndMarker;
     private int[,] Maze;
     private Stack<Vector2> _tiletoTry = new Stack<Vector2>();
     private List<Vector2> offsets = new List<Vector2> { new Vector2(0, 1), new Vector2(0, -1), new Vector2(1, 0), new Vector2(-1, 0) };
@@ -42,7 +43,8 @@ public class mazegen : MonoBehaviour
     // ============= subroutines ============
     void MakeBlocks()
     {
-
+        int exitX = width - 1;
+        int exitY = height - 2;
         Maze = new int[width, height];
         for (int x = 0; x < width; x++)
         {
@@ -54,36 +56,61 @@ public class mazegen : MonoBehaviour
         CurrentTile = Vector2.one;
         _tiletoTry.Push(CurrentTile);
         Maze = CreateMaze();  // generate the maze in Maze Array.
-        GameObject ptype = null;
-        GameObject ttype = null;
+        GameObject wall = null;
+        GameObject floorTile = null;
         //GameObject ltype = null;
         for (int i = 0; i <= Maze.GetUpperBound(0); i++)
         {
             for (int j = 0; j <= Maze.GetUpperBound(1); j++)
             {
+                if (i == 1 && j == 0) // add starting blocker
+                {
+                    wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    wall.transform.position = new Vector3(i * wall.transform.localScale.x, 0.5f, (j - 1) * wall.transform.localScale.z);
+
+                    wall.transform.localScale = new Vector3(3f, 2f, 1f);
+
+                    if (brick != null) { wall.GetComponent<Renderer>().material = brick; }
+                    wall.transform.parent = transform;
+                }
+
+                if (i == exitX && j == exitY) // set exit plane 
+                {
+                    //floorTile = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    //floorTile.transform.position = new Vector3((i + 1) * floorTile.transform.localScale.x, 0, j * floorTile.transform.localScale.z);
+                    //floorTile.transform.localScale = new Vector3(0.1f, 1f, 0.1f);
+                    endMarker.transform.position = new Vector3((i + 1), 0, j);
+                }
+
                 if (Maze[i, j] == 1)
                 {
-                
                     MazeString = MazeString + "X";  // added to create String
-                    ptype = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    ptype.transform.position = new Vector3(i * ptype.transform.localScale.x, 0, j * ptype.transform.localScale.z);
-                    ttype = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    ttype.transform.position = new Vector3(i * ptype.transform.localScale.x, 1, j * ptype.transform.localScale.z);
-         
-                  /*  int r1 = Random.Range(0, 2);
-                    int r2 = Random.Range(0, 5);
-                    if () {
-                        ltype = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        ltype.transform.position = new Vector3(i * ptype.transform.localScale.x, 1.5f, j * ptype.transform.localScale.z);
-                    } */
 
-                    if (brick != null) { ptype.GetComponent<Renderer>().material = brick;  ttype.GetComponent<Renderer>().material = brick; }
-                    ptype.transform.parent = transform;
-                    ttype.transform.parent = transform;
+                    // put walls where 1's exist in maze array
+                    wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    wall.transform.position = new Vector3(i * wall.transform.localScale.x, 0.5f, j * wall.transform.localScale.z);
+
+                    wall.transform.localScale = new Vector3(1f, 2f, 1f);
+
+                    /*  int r1 = Random.Range(0, 2);                   I dont remember what this does
+                      int r2 = Random.Range(0, 5);
+                      if () {
+                          ltype = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                          ltype.transform.position = new Vector3(i * ltype.transform.localScale.x, 1.5f, j * ltype.transform.localScale.z);
+                      } */
+
+                    if (brick != null) { wall.GetComponent<Renderer>().material = brick; }
+                    wall.transform.parent = transform;
                 }
                 else if (Maze[i, j] == 0)
                 {
                     MazeString = MazeString + "O"; // added to create String
+
+                    // put floor tiles down
+                    floorTile = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    floorTile.transform.position = new Vector3(i * floorTile.transform.localScale.x, 0, j * floorTile.transform.localScale.z);
+                    floorTile.transform.localScale = new Vector3(0.1f, 1f, 0.1f);
+                    floorTile.transform.parent = transform;
                 }
             }
             MazeString = MazeString + "\n";  // added to create String
@@ -116,15 +143,15 @@ public class mazegen : MonoBehaviour
             }
             else
             {
-                if(Maze[(int)CurrentTile.x + 1, (int)CurrentTile.y] == 1 && Maze[(int)CurrentTile.x, (int)CurrentTile.y + 1] == 1 && Maze[(int)CurrentTile.x, (int)CurrentTile.y - 1] == 1)
+                /*if(Maze[(int)CurrentTile.x + 1, (int)CurrentTile.y] == 1 && Maze[(int)CurrentTile.x, (int)CurrentTile.y + 1] == 1 && Maze[(int)CurrentTile.x, (int)CurrentTile.y - 1] == 1)
                 {
-                    Instantiate(endMarker);
-                    endMarker.transform.position = new Vector3((int)CurrentTile.x, 0, (int)CurrentTile.y);
+                    Instantiate(deadEndMarker);
+                    deadEndMarker.transform.position = new Vector3((int)CurrentTile.x, 0, (int)CurrentTile.y);
                 }
                 else if (Maze[(int)CurrentTile.x + 1, (int)CurrentTile.y] == 1 && Maze[(int)CurrentTile.x, (int)CurrentTile.y + 1] == 1 && Maze[(int)CurrentTile.x - 1, (int)CurrentTile.y] == 1)
                 {
-                    Instantiate(endMarker);
-                    endMarker.transform.position = new Vector3((int)CurrentTile.x, 0, (int)CurrentTile.y);
+                    Instantiate(deadEndMarker);
+                    deadEndMarker.transform.position = new Vector3((int)CurrentTile.x, 0, (int)CurrentTile.y);
                 }
                 /*else adds random chests not in corners
                 {
@@ -133,7 +160,7 @@ public class mazegen : MonoBehaviour
                         if(chestArray[i] == index)
                         {
                             Instantiate(endMarker);
-                            endMarker.transform.position = new Vector3((int)CurrentTile.x, 0, (int)CurrentTile.y);
+                            deadEndMarker.transform.position = new Vector3((int)CurrentTile.x, 0, (int)CurrentTile.y);
                         }
                     }
                 }*/
