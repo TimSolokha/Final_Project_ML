@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Training Thin Walls Tom.unity
+- path: Assets/Scenes/Cumulative Learning.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

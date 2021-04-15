@@ -30,7 +30,7 @@ public class MovingAgent : Agent
 
         this.rBody.angularVelocity = Vector3.zero;
         this.rBody.velocity = Vector3.zero;
-        this.transform.localPosition = new Vector3(-10f, 1f, -6f);
+        this.transform.localPosition = new Vector3(6f, 1f, 4f);
   
     }
 
