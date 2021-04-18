@@ -5,6 +5,8 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.MLAgents;
+
 public class mazegen : MonoBehaviour
 {
     public Transform player;
@@ -38,11 +40,34 @@ public class mazegen : MonoBehaviour
     {
         get { return instance; }
     }
-    void Awake() { instance = this; MakeBlocks(); }
+
+
+    void ClearObjects(GameObject[] objects)
+    {
+        foreach (var item in objects)
+        {
+            Destroy(item);
+        }
+    }
+
+    public void EnvironmentReset()
+    {
+        ClearObjects(GameObject.FindGameObjectsWithTag("wall"));
+        ClearObjects(GameObject.FindGameObjectsWithTag("tile"));
+        MakeBlocks();
+    }
+    void Awake() {
+        Academy.Instance.OnEnvironmentReset += EnvironmentReset;
+        instance = this; 
+        //MakeBlocks(); 
+    
+    }
     // end of main program
     // ============= subroutines ============
     void MakeBlocks()
     {
+        width = (int)Academy.Instance.EnvironmentParameters.GetWithDefault("size", width);
+        height = (int)Academy.Instance.EnvironmentParameters.GetWithDefault("size", height);
         int exitX = width - 1;
         int exitY = height - 2;
         Maze = new int[width, height];
@@ -66,6 +91,8 @@ public class mazegen : MonoBehaviour
                 if (i == 1 && j == 0) // add starting blocker
                 {
                     wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                    wall.tag = "wall";
                     wall.transform.position = new Vector3(i * wall.transform.localScale.x, 0.5f, (j - 1) * wall.transform.localScale.z);
 
                     wall.transform.localScale = new Vector3(3f, 2f, 1f);
@@ -88,6 +115,7 @@ public class mazegen : MonoBehaviour
 
                     // put walls where 1's exist in maze array
                     wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    wall.tag = "wall";
                     wall.transform.position = new Vector3(i * wall.transform.localScale.x, 0.5f, j * wall.transform.localScale.z);
 
                     wall.transform.localScale = new Vector3(1f, 2f, 1f);
@@ -108,6 +136,7 @@ public class mazegen : MonoBehaviour
 
                     // put floor tiles down
                     floorTile = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    floorTile.tag = "tile";
                     floorTile.transform.position = new Vector3(i * floorTile.transform.localScale.x, 0, j * floorTile.transform.localScale.z);
                     floorTile.transform.localScale = new Vector3(0.1f, 1f, 0.1f);
                     floorTile.transform.parent = transform;
@@ -124,6 +153,7 @@ public class mazegen : MonoBehaviour
         int index = 0;
         //local variable to store neighbors to the current square as we work our way through the maze
         List<Vector2> neighbors;
+
         //as long as there are still tiles to try
         while (_tiletoTry.Count > 0)
         {

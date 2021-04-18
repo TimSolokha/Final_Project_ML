@@ -21,3 +21,45 @@ behaviors:
     max_steps: 5000000
     time_horizon: 64
     summary_freq: 1000
+
+environment_parameters:
+  size:
+    curriculum:
+      - name: Lesson1
+        completion_criteria:
+          measure: reward
+          behavior: MoveCube
+          signal_smoothing: true
+          threshold: .99
+        value: 5
+      - name: Lesson2
+        completion_criteria:
+          measure: reward
+          behavior: MoveCube
+          signal_smoothing: true
+          threshold: .98
+        value: 7
+      - name: Lesson3
+        completion_criteria:
+          measure: reward
+          behavior: MoveCube
+          signal_smoothing: true
+          threshold: .98
+        value: 9
+      - name: Lesson4
+        completion_criteria:
+          measure: reward
+          behavior: MoveCube
+          signal_smoothing: true
+          threshold: .95
+        value: 11
+      - name: Lesson5
+        completion_criteria:
+          measure: reward
+          behavior: MoveCube
+          signal_smoothing: true
+          threshold: .95
+        value: 13
+      - name: Lesson6
+        value: 15
+        

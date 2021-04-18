@@ -11,6 +11,7 @@ public class MovingAgent : Agent
     private float movementX;
     private float movementY;
     private float rotateX;
+    mazegen maze;
 
     const float MIN_X = 0.0f;
     const float MAX_X = 360.0f;
@@ -20,17 +21,20 @@ public class MovingAgent : Agent
     public Transform endGoal;
     public float forceMultiplier = .1f;
 
-    void Start()
+    public GameObject area;
+
+    public override void Initialize()
     {
         rBody = GetComponent<Rigidbody>();
+        maze = area.GetComponent<mazegen>();
     }
     public override void OnEpisodeBegin()
     {
-        // If the Agent fell, zero its momentum
+        maze.EnvironmentReset();
 
         this.rBody.angularVelocity = Vector3.zero;
         this.rBody.velocity = Vector3.zero;
-        this.transform.localPosition = new Vector3(6f, 1f, 4f);
+        this.transform.localPosition = new Vector3(1f, .25f, 0f);
   
     }
 
