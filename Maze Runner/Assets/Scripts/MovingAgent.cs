@@ -19,7 +19,7 @@ public class MovingAgent : Agent
     Rigidbody rBody;
 
     public Transform endGoal;
-    public float forceMultiplier = .1f;
+    public float forceMultiplier = 3f;
 
     public GameObject area;
 
@@ -59,7 +59,9 @@ public class MovingAgent : Agent
         Vector3 controlSignal = Vector3.zero;
         controlSignal.x = actionBuffers.ContinuousActions[0];
         controlSignal.z = actionBuffers.ContinuousActions[1];
-        rBody.transform.Translate(controlSignal * forceMultiplier);
+        //controlSignal.y = 0;
+        //Vector3 movement = new Vector3(actionBuffers.ContinuousActions[0], 0.0f,actionBuffers.ContinuousActions[1]);
+        rBody.AddForce(controlSignal * forceMultiplier);
 
         var rotateDir = Vector3.zero;
         //var rotate = Mathf.Clamp(actionBuffers.ContinuousActions[2], -1f, 1f);
@@ -112,19 +114,19 @@ public class MovingAgent : Agent
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
         transform.rotation = Quaternion.Euler(0.0f, rotateX, 0.0f);
-        rBody.transform.Translate(movement * forceMultiplier);
+        rBody.AddForce(movement * forceMultiplier);
 
         AddReward(-.00001f);
 
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, endGoal.localPosition);
         if (this.transform.localPosition.y < 0)
         {
-            //SetReward(-1f);
+            SetReward(-1f);
             EndEpisode();
         }
 
 
-        if (distanceToTarget <= 1f)
+        if (distanceToTarget <= .6f)
         {
             SetReward(1f);
             EndEpisode();

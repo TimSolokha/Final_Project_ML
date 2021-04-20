@@ -21,6 +21,7 @@ public class mazegen : MonoBehaviour
     private int _width, _height;
     private Vector2 _currentTile;
     public static String MazeString;
+    public PhysicMaterial frictionPhysicsMaterial;
 
 
     public Vector2 CurrentTile
@@ -140,6 +141,7 @@ public class mazegen : MonoBehaviour
                     floorTile.transform.position = new Vector3(i * floorTile.transform.localScale.x, 0, j * floorTile.transform.localScale.z);
                     floorTile.transform.localScale = new Vector3(0.1f, 1f, 0.1f);
                     floorTile.transform.parent = transform;
+                    floorTile.GetComponent<Collider>().material = frictionPhysicsMaterial;
                 }
             }
             MazeString = MazeString + "\n";  // added to create String
