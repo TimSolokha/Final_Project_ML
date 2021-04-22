@@ -76,8 +76,10 @@ public class mazegen : MonoBehaviour
         int exitY = height - 2;
         if (rPlace == 0)
         {
-            exitY = 1;
-        } else if(rPlace == 1)
+            exitY = 0;
+            exitX = width - 2;
+        }
+        else if(rPlace == 1)
         {
             exitX = 0;
         } //else remains in upper right
@@ -120,6 +122,10 @@ public class mazegen : MonoBehaviour
                     if (rPlace == 1) //move finish to left side
                     {
                         endMarker.transform.position = new Vector3((i - 1), 0, j);
+                    }
+                    else if(rPlace == 0) //move to bottom side
+                    {
+                        endMarker.transform.position = new Vector3(i, 0, j - 1);
                     }
                     else //else go on right side
                     {
@@ -235,7 +241,8 @@ public class mazegen : MonoBehaviour
         int exitY = height - 2;
         if (rPlace == 0)
         {
-            exitY = 1;
+            exitY = 0;
+            exitX = width - 2;
         }
         else if (rPlace == 1)
         {
