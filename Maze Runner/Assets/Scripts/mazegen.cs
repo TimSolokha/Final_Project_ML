@@ -22,6 +22,8 @@ public class mazegen : MonoBehaviour
     private Vector2 _currentTile;
     public static String MazeString;
     public PhysicMaterial frictionPhysicsMaterial;
+    int rPlace = 2;
+
 
 
     public Vector2 CurrentTile
@@ -55,13 +57,14 @@ public class mazegen : MonoBehaviour
     {
         ClearObjects(GameObject.FindGameObjectsWithTag("wall"));
         ClearObjects(GameObject.FindGameObjectsWithTag("tile"));
+        rPlace = UnityEngine.Random.Range(0, 3);
         MakeBlocks();
     }
     void Awake() {
         Academy.Instance.OnEnvironmentReset += EnvironmentReset;
         instance = this; 
         //MakeBlocks(); 
-    
+        rPlace = UnityEngine.Random.Range(0, 3);
     }
     // end of main program
     // ============= subroutines ============
@@ -71,6 +74,13 @@ public class mazegen : MonoBehaviour
         height = (int)Academy.Instance.EnvironmentParameters.GetWithDefault("size", height);
         int exitX = width - 1;
         int exitY = height - 2;
+        if (rPlace == 0)
+        {
+            exitY = 1;
+        } else if(rPlace == 1)
+        {
+            exitX = 0;
+        } //else remains in upper right
         Maze = new int[width, height];
         for (int x = 0; x < width; x++)
         {
@@ -107,7 +117,14 @@ public class mazegen : MonoBehaviour
                     //floorTile = GameObject.CreatePrimitive(PrimitiveType.Plane);
                     //floorTile.transform.position = new Vector3((i + 1) * floorTile.transform.localScale.x, 0, j * floorTile.transform.localScale.z);
                     //floorTile.transform.localScale = new Vector3(0.1f, 1f, 0.1f);
-                    endMarker.transform.position = new Vector3((i + 1), 0, j);
+                    if (rPlace == 1) //move finish to left side
+                    {
+                        endMarker.transform.position = new Vector3((i - 1), 0, j);
+                    }
+                    else //else go on right side
+                    {
+                        endMarker.transform.position = new Vector3((i + 1), 0, j);
+                    }
                 }
 
                 if (Maze[i, j] == 1)
@@ -216,7 +233,16 @@ public class mazegen : MonoBehaviour
         Maze[73, 39] = 0;*/
         int exitX = width - 1;
         int exitY = height - 2;
+        if (rPlace == 0)
+        {
+            exitY = 1;
+        }
+        else if (rPlace == 1)
+        {
+            exitX = 0;
+        } //else remains in upper right
         Maze[1, 0] = 0;
+
         Maze[exitX, exitY] = 0;
         print("Maze Generated ... do enjoy ;) [Fear No Evil]");
         return Maze;
