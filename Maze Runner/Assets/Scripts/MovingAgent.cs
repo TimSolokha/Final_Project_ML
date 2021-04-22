@@ -63,12 +63,12 @@ public class MovingAgent : Agent
         //Vector3 movement = new Vector3(actionBuffers.ContinuousActions[0], 0.0f,actionBuffers.ContinuousActions[1]);
         rBody.AddForce(controlSignal * forceMultiplier);
 
-        var rotateDir = Vector3.zero;
+        /*var rotateDir = Vector3.zero;
         //var rotate = Mathf.Clamp(actionBuffers.ContinuousActions[2], -1f, 1f);
         var rotate = actionBuffers.ContinuousActions[2];
         rotateDir = -transform.up * rotate;
         rotateX += rotate;
-        rBody.transform.rotation = Quaternion.Euler(0.0f, rotateX, 0.0f);
+        rBody.transform.rotation = Quaternion.Euler(0.0f, rotateX, 0.0f);*/
 
 
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, endGoal.localPosition);
@@ -113,7 +113,7 @@ public class MovingAgent : Agent
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
-        transform.rotation = Quaternion.Euler(0.0f, rotateX, 0.0f);
+        //transform.rotation = Quaternion.Euler(0.0f, rotateX, 0.0f);
         rBody.AddForce(movement * forceMultiplier);
 
         AddReward(-.00001f);
