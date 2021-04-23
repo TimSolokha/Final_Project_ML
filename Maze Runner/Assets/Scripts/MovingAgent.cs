@@ -118,6 +118,11 @@ public class MovingAgent : Agent
 
         AddReward(-.00001f);
 
+        if(rBody.velocity.x == 0 && rBody.velocity.y == 0)
+        {
+            AddReward(-0.00001f);
+        }
+
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, endGoal.localPosition);
         if (this.transform.localPosition.y < 0)
         {
@@ -132,6 +137,14 @@ public class MovingAgent : Agent
             EndEpisode();
         }
 
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "wall")
+        {
+            AddReward(-0.00001f);
+        }
     }
 
     //public override void Heuristic(in ActionBuffers actionsOut)

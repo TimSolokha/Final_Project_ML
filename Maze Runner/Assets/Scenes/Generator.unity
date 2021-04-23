@@ -265,10 +265,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
-  m_DetectableTags: []
+  m_DetectableTags:
+  - wall
   m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0
+  m_SphereCastRadius: 0.05
   m_RayLength: 5
   m_RayLayerMask:
     serializedVersion: 2
@@ -330,10 +331,10 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: b384aef8e1cc4484d95ff9b9adb29186, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
-  m_BehaviorName: MoveCube
+  m_BehaviorName: MoveCube3
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -355,7 +356,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   endGoal: {fileID: 1038465677}
-  forceMultiplier: 3
+  forceMultiplier: 80
   area: {fileID: 685376291}
 --- !u!54 &364996860
 Rigidbody:
@@ -370,9 +371,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 2
 --- !u!1 &467041896
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,10 +573,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 364996853}
-  width: 3
-  height: 3
+  width: 5
+  height: 5
   brick: {fileID: 2100000, guid: 2db836aadce3e5040b975cc899233c29, type: 2}
   endMarker: {fileID: 1038465673}
+  frictionPhysicsMaterial: {fileID: 13400000, guid: 89f20a3be055ceb4abd79fa3bcab914a,
+    type: 2}
 --- !u!1 &698627863
 GameObject:
   m_ObjectHideFlags: 0

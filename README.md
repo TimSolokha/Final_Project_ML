@@ -26,8 +26,9 @@ Using MLAgents and Unity we are going to create a brain that when attached to a 
 ## Milestone 3:
 -	Update maze generator to inlcude spawn and endpoints
 -	Using ml-agents cumulative training with the maze generator
+-	Randomize end marker loactions to test left, right, up, and down.
 
 ## Milestone 4:
--	Change to a random maze
--	Re-train to solve well
+-	Inlcude positive rewards for visiting new tiles
+-	Final train to solve as big as we can get it to
 -	Add player to compete with
