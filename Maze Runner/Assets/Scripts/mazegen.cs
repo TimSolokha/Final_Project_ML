@@ -23,8 +23,7 @@ public class mazegen : MonoBehaviour
     public static String MazeString;
     public PhysicMaterial frictionPhysicsMaterial;
     int rPlace = 2;
-
-
+    public List<mazeTile> tiles = new List<mazeTile> { };
 
     public Vector2 CurrentTile
     {
@@ -57,6 +56,10 @@ public class mazegen : MonoBehaviour
     {
         ClearObjects(GameObject.FindGameObjectsWithTag("wall"));
         ClearObjects(GameObject.FindGameObjectsWithTag("tile"));
+        foreach(mazeTile tile in tiles)
+        {
+            tile.visitCounter = 0;
+        }
         rPlace = UnityEngine.Random.Range(0, 3);
         MakeBlocks();
     }
@@ -165,6 +168,8 @@ public class mazegen : MonoBehaviour
                     floorTile.transform.localScale = new Vector3(0.1f, 1f, 0.1f);
                     floorTile.transform.parent = transform;
                     floorTile.GetComponent<Collider>().material = frictionPhysicsMaterial;
+                    mazeTile newTile = new mazeTile(floorTile);
+                    tiles.Add(newTile);
                 }
             }
             MazeString = MazeString + "\n";  // added to create String
@@ -315,4 +320,16 @@ public class mazegen : MonoBehaviour
     }
 
    
+}
+
+public class mazeTile : mazegen
+{
+    public int visitCounter;
+    public Vector3 tilePosition;
+
+    public mazeTile(GameObject t)
+    {
+        tilePosition = t.transform.position;
+        visitCounter = 0;
+    }
 }

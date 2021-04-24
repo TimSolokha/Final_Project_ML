@@ -118,6 +118,11 @@ public class MovingAgent : Agent
 
         AddReward(-.00001f);
 
+        if(rBody.velocity.x == 0 && rBody.velocity.y == 0)
+        {
+            AddReward(-0.00001f);
+        }
+
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, endGoal.localPosition);
         if (this.transform.localPosition.y < 0)
         {
@@ -132,6 +137,50 @@ public class MovingAgent : Agent
             EndEpisode();
         }
 
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "wall")
+        {
+            AddReward(-0.00001f);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "tile")
+        {
+            foreach(mazeTile tile in maze.tiles)
+            {
+                if(tile.tilePosition == collision.gameObject.transform.position)
+                {
+                    Debug.Log(tile.visitCounter);
+                    if(tile.visitCounter <= 1)
+                    {
+                        AddReward(0.001f);
+                    }
+                    else if(tile.visitCounter >= 2 || tile.visitCounter <= 5)
+                    {
+                        AddReward(0.0001f);
+                    }
+                    else if (tile.visitCounter >= 6 || tile.visitCounter <= 11)
+                    {
+                        AddReward(-0.0001f);
+                    }
+                    else if (tile.visitCounter >= 12 || tile.visitCounter <= 20)
+                    {
+                        AddReward(-0.001f);
+                    }
+                    else if (tile.visitCounter > 20)
+                    {
+                        AddReward(-0.01f);
+                    }
+                    tile.visitCounter++;
+                    break;
+                }
+            }
+        }
     }
 
     //public override void Heuristic(in ActionBuffers actionsOut)
