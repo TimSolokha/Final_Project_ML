@@ -139,11 +139,47 @@ public class MovingAgent : Agent
 
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "wall")
         {
             AddReward(-0.00001f);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "tile")
+        {
+            foreach(mazeTile tile in maze.tiles)
+            {
+                if(tile.tilePosition == collision.gameObject.transform.position)
+                {
+                    Debug.Log(tile.visitCounter);
+                    if(tile.visitCounter <= 1)
+                    {
+                        AddReward(0.001f);
+                    }
+                    else if(tile.visitCounter >= 2 || tile.visitCounter <= 5)
+                    {
+                        AddReward(0.0001f);
+                    }
+                    else if (tile.visitCounter >= 6 || tile.visitCounter <= 11)
+                    {
+                        AddReward(-0.0001f);
+                    }
+                    else if (tile.visitCounter >= 12 || tile.visitCounter <= 20)
+                    {
+                        AddReward(-0.001f);
+                    }
+                    else if (tile.visitCounter > 20)
+                    {
+                        AddReward(-0.01f);
+                    }
+                    tile.visitCounter++;
+                    break;
+                }
+            }
         }
     }
 
