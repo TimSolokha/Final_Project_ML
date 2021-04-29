@@ -31,20 +31,22 @@ environment_parameters:
           behavior: MoveCube
           signal_smoothing: true
           threshold: .99
+          min_lesson_length: 5
         value: 5
       - name: Lesson2
         completion_criteria:
           measure: reward
           behavior: MoveCube
           signal_smoothing: true
-          threshold: .98
+          threshold: .95
+          min_lesson_length: 4
         value: 7
       - name: Lesson3
         completion_criteria:
           measure: reward
           behavior: MoveCube
           signal_smoothing: true
-          threshold: .98
+          threshold: .95
         value: 9
       - name: Lesson4
         completion_criteria:

@@ -82,10 +82,10 @@ public class mazegen : MonoBehaviour
             exitY = 0;
             exitX = width - 2;
         }
-        else if(rPlace == 1)
-        {
-            exitX = 0;
-        } //else remains in upper right
+        //else if(rPlace == 1)
+        //{
+        //    exitX = 0;
+        //} //else remains in upper right
         Maze = new int[width, height];
         for (int x = 0; x < width; x++)
         {
@@ -122,11 +122,11 @@ public class mazegen : MonoBehaviour
                     //floorTile = GameObject.CreatePrimitive(PrimitiveType.Plane);
                     //floorTile.transform.position = new Vector3((i + 1) * floorTile.transform.localScale.x, 0, j * floorTile.transform.localScale.z);
                     //floorTile.transform.localScale = new Vector3(0.1f, 1f, 0.1f);
-                    if (rPlace == 1) //move finish to left side
-                    {
-                        endMarker.transform.position = new Vector3((i - 1), 0, j);
-                    }
-                    else if(rPlace == 0) //move to bottom side
+                    //if (rPlace == 1) //move finish to left side
+                    //{
+                    //    endMarker.transform.position = new Vector3((i - 1), 0, j);
+                    //}
+                    if(rPlace == 0) //move to bottom side
                     {
                         endMarker.transform.position = new Vector3(i, 0, j - 1);
                     }
@@ -249,10 +249,10 @@ public class mazegen : MonoBehaviour
             exitY = 0;
             exitX = width - 2;
         }
-        else if (rPlace == 1)
-        {
-            exitX = 0;
-        } //else remains in upper right
+        //if (rPlace == 1)
+        //{
+        //    exitX = 0;
+        //} //else remains in upper right
         Maze[1, 0] = 0;
 
         Maze[exitX, exitY] = 0;

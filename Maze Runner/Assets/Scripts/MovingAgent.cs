@@ -115,14 +115,13 @@ public class MovingAgent : Agent
 
         //transform.rotation = Quaternion.Euler(0.0f, rotateX, 0.0f);
         rBody.AddForce(movement * forceMultiplier);
+        
+        AddReward(-0.000001f);
 
-        AddReward(-.00001f);
-
-        if(rBody.velocity.x == 0 && rBody.velocity.y == 0)
+        if (rBody.velocity.x == 0 && rBody.velocity.z == 0)
         {
-            AddReward(-0.00001f);
+            AddReward(-.0001f);
         }
-
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, endGoal.localPosition);
         if (this.transform.localPosition.y < 0)
         {
@@ -156,26 +155,33 @@ public class MovingAgent : Agent
                 if(tile.tilePosition == collision.gameObject.transform.position)
                 {
                     Debug.Log(tile.visitCounter);
-                    if(tile.visitCounter <= 1)
+                    if(tile.visitCounter == 1)
                     {
                         AddReward(0.001f);
                     }
-                    else if(tile.visitCounter >= 2 || tile.visitCounter <= 5)
-                    {
-                        AddReward(0.0001f);
-                    }
-                    else if (tile.visitCounter >= 6 || tile.visitCounter <= 11)
-                    {
-                        AddReward(-0.0001f);
-                    }
-                    else if (tile.visitCounter >= 12 || tile.visitCounter <= 20)
-                    {
-                        AddReward(-0.001f);
-                    }
-                    else if (tile.visitCounter > 20)
-                    {
-                        AddReward(-0.01f);
-                    }
+                    //else if(tile.visitCounter >= 2 && tile.visitCounter <= 3)
+                    //{
+                    //    AddReward(0);
+                    //}
+                    //else if(tile.visitCounter >= 4 && tile.visitCounter <= 10)
+                    //{
+                    //    AddReward(0f);
+                    //}
+                    //else if (tile.visitCounter >=11  && tile.visitCounter <= 50)
+                    //{
+                    //    AddReward(-0.0000001f);
+                    //}
+                    //else if (tile.visitCounter >= 51 && tile.visitCounter <= 110)
+                    //{
+                    //    AddReward(-0.00001f);
+                    //}
+                    //else if (tile.visitCounter >= 111 && tile.visitCounter <= 150)
+                    //{
+                    //    AddReward(-0.01f);
+                    //else if (tile.visitCounter > 150)
+                    //{
+                    //    EndEpisode();
+                    //}
                     tile.visitCounter++;
                     break;
                 }

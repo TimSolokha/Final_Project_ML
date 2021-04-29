@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: b384aef8e1cc4484d95ff9b9adb29186, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
-  m_BehaviorName: MoveCube3
+  m_BehaviorName: MoveCube
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -356,7 +356,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   endGoal: {fileID: 1038465677}
-  forceMultiplier: 80
+  forceMultiplier: 25
   area: {fileID: 685376291}
 --- !u!54 &364996860
 Rigidbody:
@@ -579,6 +579,7 @@ MonoBehaviour:
   endMarker: {fileID: 1038465673}
   frictionPhysicsMaterial: {fileID: 13400000, guid: 89f20a3be055ceb4abd79fa3bcab914a,
     type: 2}
+  tiles: []
 --- !u!1 &698627863
 GameObject:
   m_ObjectHideFlags: 0
