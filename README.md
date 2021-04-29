@@ -32,3 +32,5 @@ Using MLAgents and Unity we are going to create a brain that when attached to a 
 -	Inlcude positive rewards for visiting new tiles
 -	Final train to solve as big as we can get it to
 -	Add player to compete with
+
+**NOTE**: For the final milestone, we ran Tom's brain during the presentation.
